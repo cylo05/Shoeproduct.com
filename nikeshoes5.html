@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Air Max Product Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Full viewport height */
+            background-color: #f4f4f4;
+        }
+                    .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+                .success-message i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .buy-now-button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .buy-now-button:hover {
+            background-color: #e64a19;
+        }
+        .product-container {
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            text-align: center; /* Center text inside the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
+        h1 {
+            color: #333;
+        }
+        .details {
+            margin-top: 10px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+        select {
+            padding: 5px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block; /* Ensure dropdowns are centered */
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        .image img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="product-container">
+        <h1>Product Details</h1>
+        <p><strong>Product:</strong> Nike Shoe</p>
+        <p>Nike shoes are known for their comfort, style, and performance. They use a variety of materials, including leather, fabric, foam, and rubber. </p>
+
+        <!-- Image Section -->
+        <div class="image">
+            <img src="images/product-5.png" class="shoe" alt="Nike Shoe">
+        </div>
+
+        <div class="details">
+            <!-- Size Selection -->
+            <label for="size">Select Size:</label>
+            <select id="size" name="size">
+                <option value="39-40">39-40</option>
+                <option value="41-42">41-42</option>
+                <option value="43-44">43-44</option>
+                <option value="45">45</option>
+            </select>
+
+            <!-- Payment Method Selection -->
+            <label for="payment-method">Select Payment Method:</label>
+            <select id="payment-method" name="payment-method">
+                <option value="credit-card">Credit Card</option>
+                <option value="gcash">Gcash</option>
+                <option value="paypal">PayPal</option>
+                <option value="cash-on-delivery">Cash on Delivery</option>
+            </select>
+
+            <p><strong>Price:</strong> <span id="price">₱6,950.00</span></p>
+            <p><strong>Shipping Fee:</strong> ₱150.00</p>
+            <p><strong>Total:</strong> <span id="total">₱7,100.00</span></p>
+        </div>
+
+               <!-- Buy Now Button Container -->
+        <button class="buy-now-button" onclick="handlePurchase()">Buy Now</button>
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i> Successfully Purchased!
+        </div>
+    </div>
+
+    <script>
+        function handlePurchase() {
+            // Display the success message
+            document.getElementById('successMessage').style.display = 'block';
+
+            // Redirect to the homepage (index.html) after 3 seconds
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 3000); // 3000 milliseconds = 3 seconds
+        }
+</script>
+
+    <script>
+        // Define prices for each size (fixed numeric values)
+        const prices = {
+            "39-40": 6950, // Price for size 39-40
+            "41-42": 7000, // Price for size 41-42
+            "43-44": 7200, // Price for size 43-44
+            "45": 7000     // Price for size 45
+        };
+
+        // Shipping fee is constant
+        const shippingFee = 150;
+
+        // Get references to the DOM elements
+        const sizeDropdown = document.getElementById("size");
+        const priceElement = document.getElementById("price");
+        const totalElement = document.getElementById("total");
+
+        // Function to update price and total based on selected size
+        function updatePrice() {
+            const selectedSize = sizeDropdown.value; // Get the selected size
+            const selectedPrice = prices[selectedSize]; // Get the price for the selected size
+
+            // Update price and total
+            priceElement.textContent = `₱${selectedPrice.toFixed(2)}`;
+            totalElement.textContent = `₱${(selectedPrice + shippingFee).toFixed(2)}`;
+        }
+
+        // Attach event listener to the size dropdown
+        sizeDropdown.addEventListener("change", updatePrice);
+
+        // Initialize the price and total on page load
+        updatePrice();
+    </script>
+</body>
+</html>

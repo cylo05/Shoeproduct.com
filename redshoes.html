@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+        }
+                .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+        }
+                .success-message i {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .buy-now-button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .buy-now-button:hover {
+            background-color: #e64a19;
+        }
+
+        .slide-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 1200px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            text-align: left;
+            width: 50%;
+            padding-right: 20px;
+        }
+
+        .content span {
+            font-size: 14px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .content h3 {
+            margin: 10px 0;
+            font-size: 28px;
+            color: #333;
+        }
+
+        .content p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .image {
+            width: 50%;
+            text-align: center;
+        }
+
+        .image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal:target {
+            display: block;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: opacity 0.3s ease; /* Smooth transition for image change */
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .details h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .details p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .options label {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .options select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .price, .shipping-fee, .total-price {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Buy Now Button Container */
+        .buy-now-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .buy-now-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 80%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .buy-now-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slide Container -->
+    <div class="slide-container active">
+        <div class="slide">
+            <div class="content">
+                <span>Nike Red Shoe</span>
+                <h3>Nike Red Shoe</h3>
+                <p>Nike shoes are known for their comfort, durability, and style.</p>
+                <a href="#productModal" class="btn">Add to Cart</a>
+            </div>
+            <div class="image">
+                <img src="images/rednike.png" class="shoe" alt="Nike Red Shoe">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Product Details -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close">&times;</a>
+            
+            <!-- Image Section -->
+            <div class="image-section">
+                <img src="images/rednike.png" alt="Product Image" class="modal-image" id="productImage">
+            </div>
+
+            <!-- Details Section -->
+            <div class="details">
+                <h2>Product Details</h2>
+                <p>Nike shoes are known for their comfort, durability, and style.</p>
+
+                <!-- Options -->
+                <div class="options">
+                    <label for="size">Size:</label>
+                    <select id="size">
+                        <option value="39-40">39-40</option>
+                        <option value="41-42">41-42</option>
+                        <option value="43-44">43-44</option>
+                        <option value="45">45</option>
+                    </select>
+
+                    <label for="color">Color:</label>
+                    <select id="color">
+                        <option value="red">Red</option>
+                        <option value="yellow">Yellow</option>
+                        <option value="black">Black</option>
+                        <option value="blue">Blue</option>
+                    </select>
+
+                    <!-- Payment Method -->
+                    <label for="payment-method">Payment Method:</label>
+                    <select id="payment-method">
+                        <option value="credit-card">Credit Card</option>
+                        <option value="gcash">Gcash</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="cash-on-delivery">Cash on Delivery</option>
+                    </select>
+                </div>
+
+                <!-- Price Display -->
+                <div class="price" id="priceDisplay">Price: ₱4,750.00</div>
+
+                <!-- Shipping Fee Display -->
+                <div class="shipping-fee" id="shippingFeeDisplay">Shipping Fee: ₱150.00</div>
+
+                <!-- Total Price Display -->
+                <div class="total-price" id="totalPriceDisplay">Total: ₱4,900.00</div>
+
+                <!-- Buy Now Button Container -->
+        <button class="buy-now-button" onclick="handlePurchase()">Buy Now</button>
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i> Successfully Purchased!
+        </div>
+    </div>
+
+    <script>
+        function handlePurchase() {
+            // Display the success message
+            document.getElementById('successMessage').style.display = 'block';
+
+            // Redirect to the homepage (index.html) after 3 seconds
+            setTimeout(function() {
+                window.location.href = 'index.html';
+            }, 3000); // 3000 milliseconds = 3 seconds
+        }
+</script>
+
+    <script>
+        // JavaScript to dynamically update the price, shipping fee, total price, and image
+        document.addEventListener("DOMContentLoaded", () => {
+            const sizeSelect = document.getElementById("size");
+            const colorSelect = document.getElementById("color");
+            const productImage = document.getElementById("productImage");
+            const priceDisplay = document.getElementById("priceDisplay");
+            const shippingFeeDisplay = document.getElementById("shippingFeeDisplay");
+            const totalPriceDisplay = document.getElementById("totalPriceDisplay");
+
+            // Pricing logic based on size
+            const sizePrices = {
+                "39-40": 4750.00,
+                "41-42": 5250.00,
+                "43-44": 5750.00,
+                "45": 6250.00,
+            };
+
+            // Image mapping based on color
+            const colorImages = {
+                "red": "images/rednike.png",
+                "yellow": "images/yellow2.png",
+                "black": "images/black.png",
+                "blue": "images/blue2.png",
+            };
+
+            // Helper function to format currency
+            function formatCurrency(amount) {
+                return `₱${amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+            }
+
+            // Function to update price based on size
+            function updatePrice() {
+                const selectedSize = sizeSelect.value;
+                const price = sizePrices[selectedSize];
+                priceDisplay.textContent = `Price: ${formatCurrency(price)}`;
+                updateTotalPrice();
+            }
+
+            // Function to update image based on color
+            function updateImage() {
+                const selectedColor = colorSelect.value;
+                productImage.src = colorImages[selectedColor];
+                productImage.alt = `Nike ${selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1)} Shoe`;
+            }
+
+            // Function to update total price
+            function updateTotalPrice() {
+                const priceText = priceDisplay.textContent.split(": ")[1];
+                const shippingFeeText = shippingFeeDisplay.textContent.split(": ")[1];
+
+                const price = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+                const shippingFee = parseFloat(shippingFeeText.replace(/[^0-9.-]+/g, ""));
+
+                const total = price + shippingFee;
+                totalPriceDisplay.textContent = `Total: ${formatCurrency(total)}`;
+            }
+
+            // Event listeners for changes
+            sizeSelect.addEventListener("change", updatePrice);
+            colorSelect.addEventListener("change", updateImage);
+
+            // Initialize displays
+            updatePrice();
+            updateImage();
+        });
+    </script>
+
+</body>
+</html>
